@@ -58,7 +58,7 @@ def edit_profile(request, user_id):
             identit=profile_form.cleaned_data['means_of_identity']
             passpor = profile_form.cleaned_data['profile_passport']
             user.particulars = particula
-            user.profile.passport = passpor
+            user.profile_passport = passpor
             user.means_of_identity = identit
             user.save()
             messages.success(request, ('your profile was successfully update '))
@@ -84,7 +84,7 @@ def customer_edit_profile(request, user_id):
         customer_form = Customer_form(request.POST or None, request.FILES  or None, instance = user.profile)
         if user_form.is_valid() and customer_form.is_valid():
             profile_passport = customer_form.cleaned_data['profile_passport']
-            user.profile.passport = profile_passport
+            user.profile_passport = profile_passport
             user_form.save()
             customer_form.save()
             user.save()

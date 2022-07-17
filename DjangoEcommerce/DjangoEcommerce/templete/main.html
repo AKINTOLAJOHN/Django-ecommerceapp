@@ -90,7 +90,8 @@
                     <div class="header__nav__option">
                         <a href="#" class="search-switch mr-4"><img src="{% static 'img/icon/search.png' %}" alt=""></a>
                         <a href="#" class="mr-4"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
-                        <a href="#"  class="mr-5"><img src="{% static 'img/icon/cart.png' %}" alt=""> <span></span></a>
+                        <a href="{% url 'cart' user.id %}"  class="mr-5"><img src="{% static 'img/icon/cart.png' %}" alt=""> <span></span></a>
+                        
                         <div class="links">
                         <ul id="inline-popups">
                             <a href="#test-popup" data-effect="mfp-zoom-in"><img src="{% static 'img/icon/user.png' %}" alt="" style="width: 20px;"> </a>

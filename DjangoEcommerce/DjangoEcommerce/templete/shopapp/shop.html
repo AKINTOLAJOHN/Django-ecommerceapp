@@ -6,17 +6,6 @@
 
 {% load static %}
 
-<style>
-
-.quantity__item .quantity .pro-qty-2 input{
-    border: none;
-    width: 25px;
-    text-align: center;
-    font-weight: bold;
-}
-
-</style>
-
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option" >
 <div class="container">
@@ -33,7 +22,7 @@
 <hr style="background-color: black;">
 <div class="row">
 {% if products %}
-
+ 
 {% for product in products %}
 {% if product.categories == 'wear' and product.item_validation  %}
 <div class="col-lg-4" >
@@ -44,7 +33,7 @@
             <strong class="text-primary">{{product.product_name}}</strong>
         </h6>   
 
-        <div class="rating">
+        <div class="rating" style="color: rgb(250, 220, 48);">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
@@ -52,17 +41,8 @@
             <i class="fa fa-star-o"></i>
         </div>
         <h4><strong>${{product.price}}</strong></h4>
-        <div class="row">
-            <div class="quantity__item">
-                <div class="quantity">
-                    <div class="pro-qty-2">
-                        <input type="text" value="1">
-                    </div>
-                </div>
-            </div>
-
-            <a class="btn btn-outline-primary add-btn mb-3 ml-2" style="width: 200px;" href="{% url 'viewItem' product.id %}">view</a>
-            <a class="btn btn-primary add-btn ml-2" style="width: 200px;" href="{% url 'card' product.id %}" >Add to Cart
+        <div class="row mt-3">
+            <a class="btn btn-primary add-btn ml-2" style="width: 200px;" href="{% url 'viewItem' product.id %}" >Add to Cart
             </a>
         </div>
 
@@ -82,7 +62,7 @@
 {% if products %}
 
 {% for product in products %}
-{% if product.categories == 'footwear' and  product.item_validation %}
+{% if product.categories == 'footwear' %}
 
 <div class="col-lg-4" >
     <img class="thumbnail" src="{{product.product_image.url}}" style="height: 300px; width: 400px;">

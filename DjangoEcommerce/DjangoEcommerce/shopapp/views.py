@@ -2,15 +2,17 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import Product
+from .models import Product, Cart
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.contrib import messages
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
-from .forms import Product_Form
-import json
+from .forms import Product_Form, AddToCart_form
+from DjangoEcommerce.staffapp.models import profile
+from DjangoEcommerce.staffapp.forms import SignUpForm, Staff_form, User_form, Customer_form
 
 # Create your views here.
+@login_required
 def productView(request):
     """
     to send the form to add product and insert in the database 
@@ -30,6 +32,7 @@ def productView(request):
             'form': form
     })
 
+@login_required
 def approve(request):
     """
     to loop through the database and send all the item to the viewproduct so admin can see the item which the staff add 
@@ -37,6 +40,7 @@ def approve(request):
     productItem = Product.objects.all()
     return render(request, 'shopapp/viewproduct.html', {'productItem': productItem })
 
+@login_required
 def products(request):
     """
     to loop through the database and send all the item in the shop to the font end
@@ -45,32 +49,46 @@ def products(request):
     return render(request, 'shopapp/shop.html', {'products':products})
 
 
-def viewInDetail(request, product_id):
-    """
-    to loop through the database and send the item at the index of product id 
-    """
-    viewGood = Product.objects.all().filter(id=product_id)
-    print(viewGood)
-    return render(request, 'shopapp/viewInDetails.html', {'viewGood': viewGood})    
- 
-def addToCart(request, product_id):
-    data = json.loads(request.body)
-    print(data)
-    return products(request)    
-
-
         
+@login_required
+def addToCart(request, product_id):
+        """
+        to loop through the database and send the item at the index of product id 
+        """
+        viewGood = Product.objects.all().filter(id = product_id)
+        if request.method == 'POST':
+            form = AddToCart_form(request.POST)
+            if form.is_valid():
+                quantity = form.cleaned_data["quantity"]
+            if viewGood:
+                for i in viewGood:
+                    price = int(quantity) * float(i.price)
+                post = Cart(price_item =price,quantity =quantity)
+                post.user_id =request.user.id
+                post.product_id = product_id
+                post.save()
+                print(post)
+            
+            return HttpResponsePermanentRedirect(reverse('dashboard'))
+        else:
+            form = AddToCart_form(request.POST)
+            return render(request, 'shopapp/viewInDetails.html', {'viewGood': viewGood, 'form':form})
 
-
-def cart(request):
-    products = Product.objects.all()
-    return render(request, 'shopapp/cart.html', {'products': products})
+@login_required
+def cartItem(request, user_id):
+    itemCart = Cart.objects.all().filter(user_id = user_id, purchased = False)
+    for item in itemCart:
+        com = item.price_item    
+    return render(request, 'shopapp/cart.html', {'products': itemCart, 'com' : com})
 
 # def checkout(request):
 #     products = Product.objects.all()
 #     return render(request, 'shopapp/checkout', {'products':products})
 
-    
+@login_required
+def delete_Order(request, product_id):
+    Cart.objects.all().filter(id = product_id).delete()
+    return  products(request)
 
 
 @login_required
