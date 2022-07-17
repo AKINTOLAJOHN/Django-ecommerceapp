@@ -76,9 +76,10 @@ def addToCart(request, product_id):
 
 @login_required
 def cartItem(request, user_id):
+    com = 0
     itemCart = Cart.objects.all().filter(user_id = user_id, purchased = False)
     for item in itemCart:
-        com = item.price_item    
+        com += int(item.price_item)
     return render(request, 'shopapp/cart.html', {'products': itemCart, 'com' : com})
 
 # def checkout(request):

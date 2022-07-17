@@ -18,3 +18,11 @@ class AddToCart_form(forms.ModelForm):
         fields =[
             'quantity'
         ]
+
+
+class PaymentOption_form(forms.Form):
+    class meta:
+        fields =[
+            'option',
+            'card_number'
+        ]

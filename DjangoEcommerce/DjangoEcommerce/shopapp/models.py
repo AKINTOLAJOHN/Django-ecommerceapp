@@ -45,3 +45,13 @@ class Invoice_table(models.Model):
     user =models.ForeignKey(User, on_delete =models.CASCADE)
     total_price = models.CharField(unique=False, max_length=11)
     cashout =models.BooleanField(unique =False, default=False)
+
+
+class PaymentOption(models.Model):
+    CHOICES = [ 
+                ('mater_card', 'Master card'),
+                ('visa_card', 'Visa card'),
+                ('pay_delivery', 'Pay on delivery')
+            ]
+    option = forms.ChoiceField(choices =CHOICES, widget = forms.RadioSelect)
+    card_number = forms.CharField(max_length =20)
