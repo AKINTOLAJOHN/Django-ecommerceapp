@@ -23,27 +23,31 @@
             </tr>
         </thead>
         <tbody>
+            {% if products %}
+            {% for item in products %}
             <tr>
                 <td class="product__cart__item">
                     <div class="product__cart__item__pic">
-                        <img src="{% static '/img/shopping-cart/cart-1.jpg' %}" alt="">
+                    {% if item.product_image %}
+                    <img src="{{request.product_image.url}}" class="card-img img-fluid" alt=" Card image cap" id="product-detail">
+                    {% else %}
+                    <i class="fas fa-user fa-lg fa-fw text-dark me-2"></i>
+                    {% endif %}
                     </div>
                     <div class="product__cart__item__text">
-                        <h6>T-shirt Contrast Pocket</h6>
-                        <h5>$98.49</h5>
+                        <h6>{{item.product_name}}</h6>
+                        <h5>{{item.product_price}}</h5>
                     </div>
                 </td>
                 <td class="quantity__item">
-                    <div class="quantity">
-                        <div class="pro-qty-2">
-                            <input type="text" value="1">
-                        </div>
-                    </div>
+                    {{item.quantity}}
                 </td>
-                <td class="cart__price">$ 30.00</td>
+                <td class="cart__price">$ {{item.price_item}}</td>
+                <td class="cart__close"><a href="{% url 'delete_Order' item.product_id %}"><i class="fa fa-close"></i></a></i></td>
 
             </tr>
-
+            {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>
@@ -52,11 +56,6 @@
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="continue__btn">
             <a href="{% url 'dashboard' %}">Continue Shopping</a>
-        </div>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="continue__btn update__btn">
-            <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
         </div>
     </div>
 </div>
@@ -72,10 +71,11 @@
 </div>
 <div class="cart__total">
     <h6>Cart total</h6>
+    {% if com %}
     <ul>
-        <li>Subtotal <span>$ 169.50</span></li>
-        <li>Total <span>$ 169.50</span></li>
+        <li>Total <span>$ {{com}}</span></li>
     </ul>
+    {% endif %}
     <a href="#" class="primary-btn">Proceed to checkout</a>
 </div>
 </div>

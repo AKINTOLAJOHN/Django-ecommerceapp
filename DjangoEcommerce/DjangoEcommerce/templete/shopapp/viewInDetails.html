@@ -6,6 +6,15 @@
 
 {% load static %}
 
+<style>
+  form .form-group .id_quantity {
+    border: none;
+    width: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+</style>
+
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
         <div class="container">
@@ -25,16 +34,32 @@
                 <!-- e -->
                 <div class="row">
                     <div class="col-lg-7">
-                        <img class="thumbnail" src="{{product.product_image.url}}">
+                        <img class="thumbnail" src="{{product.product_image.url}}" style="height: 300px; width: 500px;">
                     </div>
                     <!-- s -->
                     <div class="col-lg-5">
-                        <p>{{product.description}}</p>
+                        <h6 class="ml-2">Description:</h6>
+                        <p class="ml-5">{{product.description}}</p>
+                        <h6 class="ml-2">Brand:</h6>
+                        <p class="text-muted ml-5"><strong>Easy Wear</strong></p>
+                        <h6 class="ml-2">categories:</h6> 
                         <div class="box-element product">
-                            <h6 class="mt-3 ml-4"><strong class="text-primary">{{product.product_name}}</strong></h6>
-                            <hr>
-                            <button  class="btn btn-outline-primary add-btn">Add to Cart</button>
-                            <h4 style="display: inline-block; margin-left: 40px;"><strong>${{product.price}}</strong></h4>
+                            <p class="ml-5">
+                                {{product.product_name}}</p>
+                                <hr class="bg-dark">
+                                <h4 class="ml-3"><strong>${{product.price}}</strong></h4>
+                                <hr class="bg-dark">
+                                <!--  -->
+                                <form action="" method="post" class="mt-2 shadow  p-3 mb-3  !spacing ">
+                                    {% csrf_token %}
+                                    {% load bootstrap %}
+                                    {{form|bootstrap}}
+                                    <div class="d-flex justify-content-center">
+                                        <input class="bc-white mt-2 ml-2 loginbutton btn btn-dark" type="submit" value="add to cart">
+                                    </div>
+                                </form>
+                                <!--  -->
+
                         </div>
                     </div>
                     <!-- s -->
