@@ -28,15 +28,15 @@
             <tr>
                 <td class="product__cart__item">
                     <div class="product__cart__item__pic">
-                    {% if item.product_image %}
-                    <img src="{{request.product_image.url}}" class="card-img img-fluid" alt=" Card image cap" id="product-detail">
+                    {% if item.product.product_image %}
+                    <img src="{{item.product.product_image.url}}" class="card-img img-fluid" alt="" id="product-detail" style="width: 150px; height: 170px;">
                     {% else %}
                     <i class="fas fa-user fa-lg fa-fw text-dark me-2"></i>
                     {% endif %}
                     </div>
                     <div class="product__cart__item__text">
-                        <h6>{{item.product_name}}</h6>
-                        <h5>{{item.product_price}}</h5>
+                        <h6>{{item.product.product_name}}</h6>
+                        <h5>{{item.product.price}}</h5>
                     </div>
                 </td>
                 <td class="quantity__item">
