@@ -65,13 +65,26 @@
 {% if product.categories == 'footwear' %}
 
 <div class="col-lg-4" >
-    <img class="thumbnail" src="{{product.product_image.url}}" style="height: 300px; width: 400px;">
-    <div class="box-element product">
-        <h6><strong >{{product.product_name}}</strong></h6>
-        <hr>
-        <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-        <a class="btn btn-outline-success" href="#">View</a>
-        <h4 style="display: inline-block; margin-left: 80px; color: white;"><strong>${{product.price}}</strong></h4>
+    <img class="thumbnail" src="{{product.product_image.url}}" style="height: 300px; width: 300px;">
+
+    <div class="box-element product mt-5 ml-3">
+        <h6 c>
+            <strong class="text-primary">{{product.product_name}}</strong>
+        </h6>   
+
+        <div class="rating" style="color: rgb(250, 220, 48);">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <h4><strong>${{product.price}}</strong></h4>
+        <div class="row mt-3">
+            <a class="btn btn-primary add-btn ml-2" style="width: 200px;" href="{% url 'viewItem' product.id %}" >Add to Cart
+            </a>
+        </div>
+
 
     </div>
 </div>

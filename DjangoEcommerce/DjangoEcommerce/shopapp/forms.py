@@ -20,9 +20,9 @@ class AddToCart_form(forms.ModelForm):
         ]
 
 
-class PaymentOption_form(forms.Form):
-    class meta:
-        fields =[
-            'option',
-            'card_number'
-        ]
+# class PaymentOption_form(forms.Form):
+#     class meta:
+#         fields =[
+#             'option',
+#             'card_number'
+#         ]
